@@ -20,7 +20,7 @@
 	<repositories>
 		<repository>
 			<id>github</id>
-			<url>https://github.com/adarsh6672/Unleash_Basedomain.git</url>
+			<url>https://github.com/adarsh6672/Unleash_Basedomain</url>
 		</repository>
 	</repositories>
 	<dependencies>
