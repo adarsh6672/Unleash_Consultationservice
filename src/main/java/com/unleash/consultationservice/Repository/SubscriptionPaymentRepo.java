@@ -14,7 +14,7 @@ public interface SubscriptionPaymentRepo extends JpaRepository<SubscriptionPayme
 
     SubscriptionPayments findByOrderId(String orderId);
 
-    @Query("SELECT SUM(amount) FROM SubscriptionPayments WHERE DATE(payedOn) = CURRENT_DATE")
+    @Query("SELECT SUM(sp.amount) FROM SubscriptionPayments sp WHERE FUNCTION('DATE', sp.payedOn) = CURRENT_DATE")
     BigDecimal getTotalAmountForToday();
 
     @Query("SELECT SUM(amount) FROM SubscriptionPayments WHERE DATE(payedOn) = :givenDate")
