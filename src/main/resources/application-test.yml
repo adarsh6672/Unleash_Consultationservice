@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:unleash_consultationservice
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+cloudinary:
+  cloud_name: "datji9d5p"
+  api_key: "348622365113146"
+  api_secret: "wxLDIRIsyC8ovBPwLUng846szgU"
+
+razorpay:
+  key_id: "rzp_test_8b6GHpvbMnFOEM"
+  secret_id: "meOU2C0AW0axCyREWHQYZ1Qf"

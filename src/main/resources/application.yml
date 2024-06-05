@@ -1,0 +1,55 @@
+server:
+  port: 8082
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
+spring:
+  application:
+    name: consultation-service
+  servlet:
+    multipart.enabled: true
+    multipart.max-file-size: 20MB
+    multipart.max-request-size: 20MB
+  dataSource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB_NAME:unleash_consultationservice}
+    username:  ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#  kafka:
+#    producer:
+#     bootstrap-servers: localhost:9092
+#     key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#     value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  logging:
+    level:
+      root: DEBUG
+      org.springframework.web: DEBUG
+      com.unleash: DEBUG
+      org.hibernate: TRACE
+      org.springframework.security: TRACE
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+      file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  cloud:
+    config:
+      uri: http://localhost:8888
+cloudinary:
+  cloud_name: "datji9d5p"
+  api_key: "348622365113146"
+  api_secret: "wxLDIRIsyC8ovBPwLUng846szgU"
+
+razorpay:
+  key_id: "rzp_test_8b6GHpvbMnFOEM"
+  secret_id: "meOU2C0AW0axCyREWHQYZ1Qf"
+
