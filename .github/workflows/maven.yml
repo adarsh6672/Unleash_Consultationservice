@@ -62,6 +62,13 @@ jobs:
         env:
           SPRING_PROFILE_ACTIVE: test
 
+      - name: Upload Surefire reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
+
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
