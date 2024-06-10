@@ -16,5 +16,5 @@ jobs:
       - name: delete old docker image
         run:  docker rm -f consultation-service || true
       - name: run docker container
-        run:  docker run -d -p 8081:8081 --name consultation-service --network test_app-network adarsh6672/unleash-consultationservice
+        run:  docker run -d -p 8082:8082 --name consultation-service --network test_app-network adarsh6672/unleash-consultationservice
 
