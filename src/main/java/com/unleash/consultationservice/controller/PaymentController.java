@@ -16,7 +16,7 @@ import java.util.Base64;
 import java.util.List;
 
 @RestController
-@RequestMapping("/consultation/payment")
+@RequestMapping("/api/consultation/payment")
 public class PaymentController {
 
     @Autowired
