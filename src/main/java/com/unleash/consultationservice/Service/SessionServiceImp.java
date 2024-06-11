@@ -72,12 +72,12 @@ public class SessionServiceImp implements SessionService {
                 responseDto.setSessionId(booking.getId());
                 responseDto.setBookedOn(avilability.getSlot());
 
-                NotificationDto notificationDto = new NotificationDto();
-                notificationDto.setUserId(userId);
-                notificationDto.setMessage(" Your Session booked successfully . \n  Session Time : "+avilability.getSlot()+
-                        "\n Thank you \n Team Unleash");
-                notificationDto.setSubject("Booking Confirmed");
-                kafkaPublisherService.createNotification(notificationDto);
+//                NotificationDto notificationDto = new NotificationDto();
+//                notificationDto.setUserId(userId);
+//                notificationDto.setMessage(" Your Session booked successfully . \n  Session Time : "+avilability.getSlot()+
+//                        "\n Thank you \n Team Unleash");
+//                notificationDto.setSubject("Booking Confirmed");
+//                kafkaPublisherService.createNotification(notificationDto);
 
                 return ResponseEntity.ok().body(responseDto);
             }
