@@ -18,6 +18,7 @@ import java.util.Map;
 public class KafkaProducerConfig {
 
 
+
     @Bean
     public NewTopic createTopic(){
         return new NewTopic("unleash-notification", 3, (short) 1);
@@ -27,7 +28,7 @@ public class KafkaProducerConfig {
     public Map<String,Object> producerConfig(){
         Map<String,Object> props=new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "0.0.0.0:9092");
+                "http://localhost:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
