@@ -152,9 +152,9 @@ public class CounselorServiceImp implements CounselorService {
             counselorDashBoardDTO.setTotalIncome(
                     weeklySessionRepositroy.getTotalAmountForPaidSessions(userId).toString()
             );
-            counselorDashBoardDTO.setLastWeekPending(
+           /* counselorDashBoardDTO.setLastWeekPending(
                     weeklySessionRepositroy.getTotalAmountForUnPaidSessions(userId).toString()
-            );
+            );*/
 
            return counselorDashBoardDTO;
 
