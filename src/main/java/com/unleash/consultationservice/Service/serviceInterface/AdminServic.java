@@ -1,8 +1,10 @@
 package com.unleash.consultationservice.Service.serviceInterface;
 
 import com.unleash.consultationservice.DTO.DashboardDTO;
+import com.unleash.consultationservice.DTO.FeedbackResponse;
 import com.unleash.consultationservice.DTO.PlanDto;
 import com.unleash.consultationservice.DTO.SubscriptionChartDTO;
+import com.unleash.consultationservice.Model.Feedback;
 import com.unleash.consultationservice.Model.Plans;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,4 +24,8 @@ public interface AdminServic {
     DashboardDTO getDashboardData();
 
     List<SubscriptionChartDTO> getSubscriptionChartData(String wise);
+
+    ResponseEntity<?> getAllFeedbacks();
+
+    List<FeedbackResponse> addDataToFeedback(List<Feedback> feedbacks);
 }

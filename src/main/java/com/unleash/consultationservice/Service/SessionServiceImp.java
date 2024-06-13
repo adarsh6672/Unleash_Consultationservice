@@ -10,12 +10,10 @@ import com.unleash.consultationservice.Repository.CounselorAvailabilityRepo;
 import com.unleash.consultationservice.Repository.FeedbackRepository;
 import com.unleash.consultationservice.Repository.SessionBookingRepo;
 import com.unleash.consultationservice.Repository.SubscriptionRepo;
+import com.unleash.consultationservice.Service.serviceInterface.AdminServic;
 import com.unleash.consultationservice.Service.serviceInterface.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -47,6 +45,9 @@ public class SessionServiceImp implements SessionService {
 
     @Autowired
     private KafkaPublisherService kafkaPublisherService;
+
+    @Autowired
+    private AdminServic adminServic;
 
 
     @Override
@@ -226,7 +227,8 @@ public class SessionServiceImp implements SessionService {
     public ResponseEntity<?> getfeedbackofCounselor(int counselorId, int pageNo) {
         Pageable pageable = PageRequest.of(pageNo,5).withSort(Sort.by("id").descending());
         Page<Feedback> feedbacks = feedbackRepository.findByCounselorId(counselorId,pageable );
-        return ResponseEntity.ok().body(feedbacks);
+        List<FeedbackResponse> feedbackResponses = adminServic.addDataToFeedback(feedbacks.toList());
+        return ResponseEntity.ok().body(feedbackResponses);
     }
 
 

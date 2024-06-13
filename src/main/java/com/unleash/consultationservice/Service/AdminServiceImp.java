@@ -2,12 +2,10 @@ package com.unleash.consultationservice.Service;
 
 import com.unleash.consultationservice.DTO.*;
 import com.unleash.consultationservice.Interface.UserClient;
+import com.unleash.consultationservice.Model.Feedback;
 import com.unleash.consultationservice.Model.Plans;
 import com.unleash.consultationservice.Model.SessionBooking;
-import com.unleash.consultationservice.Repository.PlanRepo;
-import com.unleash.consultationservice.Repository.SessionBookingRepo;
-import com.unleash.consultationservice.Repository.SubscriptionPaymentRepo;
-import com.unleash.consultationservice.Repository.SubscriptionRepo;
+import com.unleash.consultationservice.Repository.*;
 import com.unleash.consultationservice.Service.serviceInterface.AdminServic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,9 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +44,11 @@ public class AdminServiceImp implements AdminServic {
 
     @Autowired
     SessionBookingRepo sessionBookingRepo;
+
+    @Autowired
+    private FeedbackRepository feedbackRepository;
+
+
 
     @Override
     public boolean addPlan(Map data , MultipartFile file) throws IOException {
@@ -148,5 +151,46 @@ public class AdminServiceImp implements AdminServic {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllFeedbacks() {
+        List<Feedback> feedbacks =feedbackRepository.findAll().stream().sorted(Comparator.comparing(Feedback::getId)).toList();
+        List<FeedbackResponse> feedbackResponses = addDataToFeedback(feedbacks);
+        return ResponseEntity.ok().body(feedbackResponses);
+
+    }
+    @Override
+    public List<FeedbackResponse> addDataToFeedback(List<Feedback> feedbacks){
+        List<FeedbackResponse> feedbackResponses = new ArrayList<>();
+        try{
+
+            List<UserDto> counselors = userClient.findAllCounselors();
+            List<UserDto> patients = userClient.getPatients().getBody();
+            feedbackResponses = new ArrayList<>();
+            for(Feedback feedback: feedbacks){
+                FeedbackResponse feedbackResponse = new FeedbackResponse();
+                feedbackResponse.setFeedback(feedback.getFeedback());
+                feedbackResponse.setRating(feedback.getRating());
+                feedbackResponse.setTimestamp(feedback.getTimeStamp().toString());
+                String counselorName = counselors.stream()
+                        .filter(couns -> couns.getId() == feedback.getCounselorId())
+                        .map(couns -> couns.getFullname())
+                        .findFirst()
+                        .orElse(null);
+                feedbackResponse.setCounselor(counselorName);
+                String patientName = patients.stream()
+                        .filter(couns -> couns.getId() == feedback.getPatientId())
+                        .map(couns -> couns.getFullname())
+                        .findFirst()
+                        .orElse(null);
+                feedbackResponse.setPatient(patientName);
+                feedbackResponses.add(feedbackResponse);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return feedbackResponses;
     }
 }

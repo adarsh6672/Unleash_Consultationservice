@@ -72,4 +72,9 @@ public class AdminController {
         return ResponseEntity.ok().body(adminServic.getSubscriptionChartData(wise));
     }
 
+    @GetMapping("/get-all-feedbacks")
+    public ResponseEntity<?> getAllFeedbacks(){
+        return adminServic.getAllFeedbacks();
+    }
+
 }
