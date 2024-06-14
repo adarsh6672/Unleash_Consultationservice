@@ -1,5 +1,6 @@
 package com.unleash.consultationservice.controller;
 
+import com.unleash.consultationservice.Service.serviceInterface.AdminServic;
 import com.unleash.consultationservice.Service.serviceInterface.SessionService;
 import com.unleash.consultationservice.Service.serviceInterface.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class PublicController {
 
     @Autowired
     SubscriptionService subscriptionService;
+
+    @Autowired
+    private AdminServic adminServic;
 
     @Autowired
     private SessionService sessionService;
@@ -38,5 +42,9 @@ public class PublicController {
         return sessionService.getfeedbackofCounselor(counselorId,pageNo);
     }
 
+    @GetMapping("/get-all-feedbacks")
+    public ResponseEntity<?> getAllFeedbacks(){
+        return adminServic.getAllFeedbacks();
+    }
 
 }
